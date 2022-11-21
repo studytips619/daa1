@@ -1,0 +1,28 @@
+class Item:
+    def __init__(self, profit, weight):
+        self.profit = profit
+        self.weight = weight
+
+def fractionalKnapsack(size_of_bag, arr):
+    arr.sort(key=lambda x: (x.profit / x.weight), reverse=True)
+
+    final_profit = 0.0
+
+    for item in arr:
+        if (item.weight <= size_of_bag):
+            size_of_bag -= item.weight
+            final_profit += item.profit
+        else:
+            final_profit += size_of_bag / item.weight * item.profit
+            break
+
+    return final_profit
+
+if __name__ == "__main__":
+    size_of_bag = 50
+
+    arr = [Item(35, 60), Item(55, 90), Item(300, 100)]
+
+    max_profit = fractionalKnapsack(size_of_bag, arr)
+
+    print(max_profit)
